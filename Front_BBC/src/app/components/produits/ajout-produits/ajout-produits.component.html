@@ -1,0 +1,129 @@
+<div class="border-8 bg-[#292994] border-[#f0be67] w-[80%] h-full p-8 ml-60">
+    <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+        <h3 class="text-4xl font-semibold text-white dark:text-white">
+            Nouveau Produit
+        </h3>
+    </div>
+
+    <div>
+        <form [formGroup]="produitForm">
+                <div class="hidden">
+                    <input type="" hidden formControlName="succursale_id">
+                </div>
+            <div class="grid md:grid-cols-4 md:gap-6 mt-4 mb-2">
+                <div class="relative z-0 w-full p-4 mb-6 group col-span-2">
+                    <input type="text" formControlName="libelle" id="libelle"
+                        class="block py-2.5 px-0 w-full text-2xl text-white text-center bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder="" required />
+                    <label for="libelle"
+                        class="peer-focus:font-medium absolute text-3xl text-[#f0be67] dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-white peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        Article</label>
+                </div>
+                <div class="relative z-0 w-full p-4 mb-6 group">
+                    <input type="text" formControlName="prix" id="floating_last_name"
+                        class="block py-2.5 px-0 w-full text-2xl text-center text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder="" required />
+                    <label for="prix"
+                        class="peer-focus:font-medium absolute text-3xl text-[#f0be67] dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-white peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        Prix d'achat</label>
+                </div>
+                <div class="relative z-0 w-full p-4 mb-6 group">
+                    <input type="text" formControlName="qte" id="floating_last_name"
+                        class="block py-2.5 px-0 w-full text-2xl text-center text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder="" required />
+                    <label for="qte"
+                        class="peer-focus:font-medium absolute text-3xl text-[#f0be67] dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-white peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        Quantité en Stock</label>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-2 md:gap-6 mb-2">
+                <div class="relative z-0 w-full mb-6 group">
+                    <label for="countries" class="block mb-2 text-2xl font-medium text-[#f0be67] dark:text-white">
+                        Marque
+                    </label>
+                    <select id="countries" formControlName="marque"
+                        class="bg-gray-50 border border-gray-300 text-black text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>Choisie une marque</option>
+                        <option *ngFor="let mark of allMark" [value]="mark.id">
+                            {{ mark.libelle }}
+                        </option>
+                    </select>
+                </div>
+                <div class="relative z-0 w-full mb-6 group">
+                    <label for="countries" class="block mb-2 text-2xl font-medium text-[#f0be67] dark:text-white">
+                        Catégorie
+                    </label>
+                    <select id="countries" formControlName="categorie"
+                        class="bg-gray-50 border border-gray-300 text-black text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>Choisie une catégorie</option>
+                        <option *ngFor="let cat of allCateg" [value]="cat.id">
+                            {{ cat.libelle }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="flex gap-52 flex-row-reverse">
+                <div class="col-span-1 w-[20%] h-[20%]">
+                    <label class="text-[#f0be67] text-2xl" for="fileInput">Télécharger une image</label>
+                    <img class="cursor-pointer rounded-full w-full h-full object-cover mb-4" [src]="imageSrc" alt="image description" (click)="uploadImage()">
+                    <input type="file" id="fileInput" style="display: none;" (change)="onFileSelected($event)">
+                </div>
+                <div class="flex flex-col h-[30%] w-[15%] bg-white m-3">
+                    <span class="text-black">CODE PRODUIT</span>
+                    <span class="text-4xl ml-8 text-[#f0be67]">000000</span>
+                </div>
+            </div>
+            <div formArrayName="caracts" class="mt-5 max-h-40 overflow-y-auto">
+                <div *ngFor="let item of caracts.controls; let i = index" [formGroupName]="i"
+                    class="grid grid-cols-4 gap-4">
+                    <div class="relative z-0 w-full mb-6 group col-span-1">
+                        <select id="countries" formControlName="caracteristique"
+                            class="bg-gray-50 border border-gray-300 text-black text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option selected>Choisie une caractéristique</option>
+                            <option *ngFor="let caract of allCaracts" [value]="caract.id">
+                                {{ caract.libelle }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="relative z-0 w-full mb-6 group col-span-1">
+                        <input type="text" formControlName="valeur" id="valeur"
+                            class="block py-2.5 px-0 w-full text-2xl text-center text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder="" required />
+                        <label for="valeur"
+                            class="peer-focus:font-medium absolute text-3xl text-[#f0be67] dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-white peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3">
+                            Valeur</label>
+                    </div>
+                    <div class="relative z-0 w-full mb-6 group col-span-1">
+                        <select id="countries" formControlName="unite"
+                            class="bg-gray-50 border border-gray-300 text-black text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option selected>Choisie l'unité</option>
+                            <option *ngFor="let unite of allUnite" [value]="unite.id">
+                                {{ unite.libelle }}
+                            </option>
+                        </select>
+                    </div>
+                    <div (click)="supprimerCaract(i)"
+                        class="text-xl mt-2 w-8 h-8 text-red-700 cursor-pointer border border-red-500 flex justify-center items-center">
+                        x
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-row-reverse mr-12">
+                <button (click)="addCaract()" type="button"
+                    class="text-[#f0be67] border border-white hover:bg-white hover:text-black focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xl px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                    Ajouter une caractéristique
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="flex flex-row-reverse gap-4 border-t border-gray-200 rounded-b dark:border-gray-600">
+        <button type="button" (click)="addProd()"
+            class="text-[#f0be67] bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Terminer</button>
+        <button type="button"
+            class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-500 text-xl font-medium px-5 py-2.5 hover:text-black focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+            Annuler</button>
+    </div>
+
+</div>

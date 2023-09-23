@@ -1,0 +1,23 @@
+<div class="grid grid-cols-2 mt-10">
+
+    <div class="flex justify-center items-center">
+        <button (click)="showChild2()"
+            class="text-4xl mb-2 px-8 py-4 border focus:bg-[#292994] focus:text-[#f0be67] border-blue-500 rounded-full hover:bg-blue-500 hover:text-white transition duration-300">Ajout
+            Produits</button>
+    </div>
+
+    <div class="flex justify-center items-center">
+        <button (click)="showChild1()"
+            class="text-4xl mb-2 px-8 py-4 border border-blue-500 rounded-full focus:bg-[#292994] focus:text-[#f0be67] hover:bg-blue-500 hover:text-white transition duration-300">Liste
+            Produits</button>
+    </div>
+
+</div>
+
+<div *ngIf="childToShow === 'child1'" class="mt-1">
+    <app-list-produits></app-list-produits>
+</div>
+
+<div *ngIf="childToShow === 'child2'" class="mt-1">
+    <app-ajout-produits></app-ajout-produits>
+</div>

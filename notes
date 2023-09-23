@@ -1,0 +1,15 @@
+Slt DEV, je voudrais une application pour la gestion de mes ventes, stock et facturation. 
+En fait j’ai une entreprise nommée BBC (BREUKH BUSINESS COMPUTERS) qui vend des matériels informatiques (ordinateur, imprimantes, souris, claviers,…). 
+Je voudrais pouvoir enregistrer mes produits avec leurs caractéristiques.  Chaque produit a un code aussi. 
+J’ai plusieurs succursales donc je voudrais que chacune puisse mettre ajouter et mettre a jour ses données. Chaque succursale se considère comme une entreprise qui doit avoir un compte avec son personnel. 
+Pour la vente, lorsque le produit que desire le client n’est pas présent dans la présente succursale alors, on le recherche dans les autres en et si trouvé on le propose et la succursale qui a effectué la vente aura un porcentage
+
+La vente de produits d’une autre succursale est possible que ai les deux sont de AMIES (comme dans les rx sociaux) si le produits trouvé est pour une succursale non AMIE alors on ne peut le sélectionner
+
+Avoir la possibilité de faire des promo sur des produits ciblés, sur des produit d’une succursale donnée, sur tous les produits, sur une commande client, sur un client donné
+
+Faire la facturation, la caisse et proposer tous les filtres possibles
+
+Un paiement pe se faire en plusieurs tranches
+
+
