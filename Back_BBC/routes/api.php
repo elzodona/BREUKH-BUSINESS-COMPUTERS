@@ -51,6 +51,8 @@ Route::apiResource('/succ', SuccursaleController::class);
 
 Route::apiResource('/prod', ProduitController::class);
 
+Route::post('/prod/paginer', [ProduitController::class, 'paginer']);
+
 Route::get('/search/{succId}/{code}', [ProduitController::class, 'searchProd']);
 
 Route::apiResource('/caract', CaracteristiquesController::class);

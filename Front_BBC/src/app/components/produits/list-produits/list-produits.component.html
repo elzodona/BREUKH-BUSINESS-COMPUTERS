@@ -1,16 +1,19 @@
-<div class="bg-slate-400 p-10 mt-16">
+<div class="bg-[#292994] p-10 mt-16">
     <div class="flex justify-between p-3">
-        <div class="nbrPro text-2xl">Nombre de produit : 5</div>
-        <div class="qte text-2xl">Quantite en stock : 19</div>
+        <div class="nbrPro text-3xl text-[#f0be67]">Nombre de produit : {{ num }}</div>
+        <div class="qte text-3xl text-[#f0be67]">Quantite en stock : 19</div>
     </div>
-    <div class="bg-slate-300 h-[50em] rounded-xl p-10">
+    <div class="bg-white h-[50em] rounded-xl p-10">
         <div class="flex justify-center space-x-10">
             <label for="" class="text-lg">Rechercher par : </label>
-            <select name="" class="w-96 border-none" id="">
-
+            <select name="" class="w-96" id="">
+                <option value="">Nom Produit</option>
+                <option value="">Catégorie</option>
+                <option value="">Prix</option>
+                <option value="">Quantité</option>
             </select>
-            <input type="text" class="w-96 border-none" />
-            <button class="bg-blue-500 text-white px-3 rounded-lg text-lg">
+            <input type="text" class="w-96" placeholder="saisir votre recherche ici">
+            <button class="bg-blue-500 px-3 rounded-lg text-lg">
                 Rechercher
             </button>
         </div>
@@ -18,8 +21,9 @@
             <div class="space-x-1 text-lg">
                 <span>Show</span>
                 <span>
-                    <select name="" id="" class="h-9">
-                        <option value="">10</option>
+                    <select (change)="onPerPageChange($event)" class="h-9">
+                        <option value="">Choisis une valeur</option>
+                        <option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">{{i}}</option>
                     </select>
                 </span>
                 <span>entries</span>
@@ -36,33 +40,45 @@
                         <th class="px-3 py-3">Photo</th>
                         <th class="px-3 py-3">Code</th>
                         <th class="px-3 py-3">Produit</th>
+                        <th class="px-3 py-3">Categorie</th>
                         <th class="px-3 py-3">Prix</th>
                         <th class="px-3 py-3">Quantité</th>
+                        <th class="px-3 py-3">Action</th>
                     </tr>
                     <hr class="bg-slate-950 h-1" />
                 </thead>
-                <tbody class="p-3">
-                    <tr class="flex justify-between items-center text-lg shadow-lg">
+                <tbody class="p-3 max-h-20 overflow-y-auto">
+                    <tr *ngFor="let prod of produits" class="flex justify-between items-center text-lg shadow-lg">
                         <td class="px-3 py-3">
-                            <img class="w-20 rounded" alt="" />
+                            <img class="w-20 rounded" src="http://localhost:8000/storage/{{prod.photo}}" alt="" />
                         </td>
-                        <td class="px-3 py-3"></td>
-                        <td class="px-3 py-3"></td>
-                        <td class="px-3 py-3"></td>
-                        <td class="px-3 py-3"></td>
+                        <td class="px-3 py-3">{{prod.code}}</td>
+                        <td class="px-3 py-3">{{prod.libelle}}</td>
+                        <td class="px-3 py-3">{{prod.categorie.libelle}}</td>
+                        <td class="px-3 py-3">{{prod.succursale[0].pivot.prix_unitaire}}</td>
+                        <td class="px-3 py-3">{{prod.succursale[0].pivot.quantite}}</td>
                         <td class="px-3 py-3">
-                            <div class="flex space-x-2">
-                                <button id="" class="px-2 py-1 text-white rounded bg-blue-500">
-                                    Détail
-                                </button>
-                                <button id="" class="px-2 py-1 rounded bg-yellow-100">
-                                    Edit
-                                </button>
-                            </div>
+                            <button id="" class="px-2 py-1 text-white rounded bg-blue-500">
+                                Détail
+                            </button>
+                            <button id="" class="px-2 py-1 rounded bg-yellow-100">
+                                Edit
+                            </button>
                         </td>
                     </tr>
                 </tbody>
-            </table>
+            </table> 
+
+            <nav aria-label="Page navigation example" class="float-right shadow-lg mt-16 rounded">
+                <ul class="pagination flex justify-center items-center text-2xl gap-16 h-10 bg-[#f0be67]">
+                    <li style="cursor: pointer;" *ngFor="let link of links" (click)="toPaginate(link.url)"
+                        [class.active]="link.active" class="page-item p-1"><button class="page-link" [innerHtml]="link.label"></button>
+                    </li>
+                </ul>
+            </nav>
+
         </div>
+        
     </div>
 </div>
+

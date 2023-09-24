@@ -71,10 +71,10 @@ export class CommandComponent {
             this.succ = false;
             this.mein = true;
             this.disabled = false;
-            this.imageSrc = this.produit.photo;
+              this.imageSrc = 'http://localhost:8000/storage/' + this.produit.photo;
             this.libelle = this.produit.libelle;
             this.code = this.produit.code;
-            this.description = this.produit.caracteristiques[1].pivot.description;
+            this.description = this.produit.caracteristiques[0].pivot.description;
             this.caracts = this.produit.caracteristiques;
             this.succ_prod_id = this.produit.succursale[0].pivot.id;
             this.qte = this.produit.succursale[0].pivot.quantite;
@@ -83,7 +83,7 @@ export class CommandComponent {
               this.succ = true;
               this.mein = false;
               this.disabled = false;
-              this.imageSrc = this.produit.photo;
+              this.imageSrc = 'http://localhost:8000/storage/' +  this.produit.photo;
               this.libelle = this.produit.libelle;
               this.code = this.produit.code;
               this.description = this.produit.caracteristiques[0].pivot.description;

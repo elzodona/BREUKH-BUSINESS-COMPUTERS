@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 
 export class ProduitsComponent {
 
-  childToShow: string = '';
+  childToShow: string = 'child1';
 
   showChild1() {
     this.childToShow = 'child1';

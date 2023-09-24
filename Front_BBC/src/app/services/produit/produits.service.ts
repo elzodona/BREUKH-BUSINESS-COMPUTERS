@@ -36,6 +36,12 @@ export class ProduitsService {
     return this.breukh.get('http://127.0.0.1:8000/api/categorie');
   }
 
+  allProduit(url: string = 'http://127.0.0.1:8000/api/prod/paginer', per_page: number = 4): Observable<any> {
+    const params = { per_page };
+    return this.breukh.post(url, params);
+  }
+
+
   addComm(data: any): Observable<any> {
     return this.breukh.post('http://127.0.0.1:8000/api/comm', data);
   }

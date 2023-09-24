@@ -15,6 +15,7 @@ use App\Models\Caracteristiques;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\ProduitResource;
+use App\Http\Resources\ProduitCollection;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreProduitRequest;
 use App\Http\Resources\SuccursaleResource;
@@ -31,9 +32,13 @@ class ProduitController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function paginer(Request $request)
     {
-        return ProduitResource::collection(Produit::all());
+        // $produits = Produit::paginate(4);
+        // return new ProduitCollection($produits);
+        $produits = Produit::paginate($request->input('per_page'));
+        return new ProduitCollection($produits);
+
     }
 
     /**
