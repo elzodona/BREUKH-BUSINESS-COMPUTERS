@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 export class ProduitsService {
 
 
-  constructor(private breukh: HttpClient) {
+  constructor(private breukh: HttpClient, private auth: AuthService) {
   }
 
   searchPrix(code: string): Observable<any> {
@@ -43,12 +44,24 @@ export class ProduitsService {
 
 
   addComm(data: any): Observable<any> {
-    return this.breukh.post('http://127.0.0.1:8000/api/comm', data);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.auth.getAccessToken()}`
+    });
+
+    return this.breukh.post('http://127.0.0.1:8000/api/comm', data, { headers });
   }
 
   addProd(data: any): Observable<any> {
-    return this.breukh.post('http://127.0.0.1:8000/api/prod', data);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.auth.getAccessToken()}`
+    });
+
+    return this.breukh.post('http://127.0.0.1:8000/api/prod', data, { headers });
   }
+
+
 
 }
 

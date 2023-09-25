@@ -2,8 +2,9 @@
 
 namespace App\Policies;
 
-use App\Models\Commande;
 use App\Models\User;
+use App\Models\Commande;
+use App\Models\Utilisateur;
 use Illuminate\Auth\Access\Response;
 
 class CommandePolicy
@@ -27,9 +28,9 @@ class CommandePolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(Utilisateur $Utilisateur): bool
     {
-        //
+        return $Utilisateur->role == 'caissier';
     }
 
     /**

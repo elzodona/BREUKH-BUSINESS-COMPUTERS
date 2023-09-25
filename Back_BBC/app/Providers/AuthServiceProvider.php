@@ -15,7 +15,8 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         User::class => UserPolicy::class,
         Utilisateur::class => UtilisateurPolicy::class,
-        Produit::class => ProduitPolicy::class
+        Produit::class => ProduitPolicy::class,
+        Commande::class => CommandePolicy::class
     ];
 
     /**

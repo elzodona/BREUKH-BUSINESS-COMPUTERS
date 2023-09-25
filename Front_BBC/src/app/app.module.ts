@@ -3,6 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,8 @@ import { CommandComponent } from './components/commande/command/command.componen
 import { ProduitsService } from './services/produit/produits.service';
 import { AjoutProduitsComponent } from './components/produits/ajout-produits/ajout-produits.component';
 import { ListProduitsComponent } from './components/produits/list-produits/list-produits.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -28,14 +31,17 @@ import { ListProduitsComponent } from './components/produits/list-produits/list-
     PanierComponent,
     CommandComponent,
     AjoutProduitsComponent,
-    ListProduitsComponent
+    ListProduitsComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
   providers: [ProduitsService],
   bootstrap: [AppComponent]

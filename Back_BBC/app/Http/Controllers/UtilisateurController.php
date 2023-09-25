@@ -68,7 +68,8 @@ class UtilisateurController extends Controller
 
     public function logout(Request $request)
     {
-        //dd(Auth::user());
+        // dd(Auth::user());
+        // dd(Auth::utilisateur());
 
         Auth::guard('sanctum')->user()->tokens()->delete();
 

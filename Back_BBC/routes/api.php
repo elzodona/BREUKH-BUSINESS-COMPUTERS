@@ -46,6 +46,8 @@ Route::middleware('auth:sanctum')->group(function() {
 
     Route::apiResource('prod', ProduitController::class);
 
+    Route::apiResource('/comm', CommandeController::class);
+
 });
 
 Route::apiResource('/succ', SuccursaleController::class);
@@ -63,8 +65,6 @@ Route::apiResource('/unite', UniteController::class);
 Route::apiResource('/marque', MarqueController::class);
 
 Route::apiResource('/categorie', CategorieController::class);
-
-Route::apiResource('/comm', CommandeController::class);
 
 Route::controller(AmiController::class)->prefix('/succ/{id}')->group(function(){
     Route::get('/friends', 'listeFriends');

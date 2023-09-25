@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { initFlowbite } from 'flowbite';
+
 
 @Component({
   selector: 'app-root',
@@ -12,5 +15,8 @@ export class AppComponent {
   ngOnInit(): void {
     initFlowbite();
   }
+
+  constructor(public router: Router) { }
+
   
 }

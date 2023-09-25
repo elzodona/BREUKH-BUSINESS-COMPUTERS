@@ -8,12 +8,18 @@ use App\Models\Paiement;
 use App\Models\SuccProd;
 use App\Models\Utilisateur;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\CommandeResource;
 use App\Http\Requests\StoreCommandeRequest;
 use App\Http\Requests\UpdateCommandeRequest;
 
 class CommandeController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Commande::class);
+    }
+    
     /**
      * Display a listing of the resource.
      */
@@ -38,6 +44,8 @@ class CommandeController extends Controller
 
     public function store(Request $request)
     {
+        //dd(Auth::user());
+        $this->authorize('create', Commande::class);
         try {
             $data = $request->all();
 
