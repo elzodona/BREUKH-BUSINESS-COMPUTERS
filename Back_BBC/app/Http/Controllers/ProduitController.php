@@ -14,9 +14,10 @@ use Illuminate\Http\Request;
 use App\Models\Caracteristiques;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\ProduitResource;
-use App\Http\Resources\ProduitCollection;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Resources\ProduitCollection;
 use App\Http\Requests\StoreProduitRequest;
 use App\Http\Resources\SuccursaleResource;
 use App\Http\Requests\UpdateProduitRequest;
@@ -24,10 +25,10 @@ use App\Http\Requests\UpdateProduitRequest;
 
 class ProduitController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->authorizeResource(Produit::class);
-    // }
+    public function __construct()
+    {
+        $this->authorizeResource(Produit::class);
+    }
 
     /**
      * Display a listing of the resource.
@@ -46,7 +47,8 @@ class ProduitController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->authorize('create', Produit::class);
+        $this->authorize('create', Produit::class);
+        // dd(Auth::user());
         // dd(auth()->user()->role);
         try {
             $code = Carbon::now()->format('YmdHis');

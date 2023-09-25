@@ -59,6 +59,8 @@ class UserController extends Controller
 
     public function logout(Request $request)
     {
+        //dd(Auth::user());
+
         Auth::guard('sanctum')->user()->tokens()->delete();
         Cookie::forget("token");
 

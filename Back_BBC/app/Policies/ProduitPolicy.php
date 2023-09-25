@@ -30,7 +30,7 @@ class ProduitPolicy
      */
     public function create(Utilisateur $Utilisateur): bool
     {
-        return $Utilisateur->role == 'caissier';
+        return $Utilisateur->role == 'vendeur';
     }
 
     /**

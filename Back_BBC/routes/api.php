@@ -41,15 +41,16 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::post('auth/register', [UserController::class, 'createUser']);
     Route::delete('auth/delete/{userId}', [UserController::class, 'deleteUser']);
 
+    Route::post('auth/logout/user', [UtilisateurController::class, 'logout']);
     Route::post('addUtilisateur', [UtilisateurController::class, 'createUtilisateur']);
 
-    // Route::post('prod', [ProduitController::class, 'store']);
+    Route::apiResource('prod', ProduitController::class);
 
 });
 
 Route::apiResource('/succ', SuccursaleController::class);
 
-Route::apiResource('/prod', ProduitController::class);
+// Route::apiResource('/prod', ProduitController::class);
 
 Route::post('/prod/paginer', [ProduitController::class, 'paginer']);
 

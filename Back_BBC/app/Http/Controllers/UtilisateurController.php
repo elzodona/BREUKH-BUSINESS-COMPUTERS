@@ -7,59 +7,77 @@ use App\Http\Requests\UpdateUtilisateurRequest;
 use Illuminate\Http\Request;
 use App\Models\Utilisateur;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Support\Facades\DB;
 
 
+
 class UtilisateurController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->authorizeResource(Utilisateur::class);
-    // }
+    public function __construct()
+    {
+        $this->authorizeResource(Utilisateur::class);
+    }
 
     /**
      * Display a listing of the resource.
      */
 
+    public function loginUtilisateur(Request $request)
+    {
+        try {
+            $validateUser = Validator::make($request->only(['login', 'password']), [
+                'login' => 'required',
+                'password' => 'required'
+            ]);
 
-    // public function loginUtilisateur(Request $request)
-    // {
-    //     try {
-    //         $validateUser = Validator::make($request->only(['login', 'password']), [
-    //             'login' => 'required',
-    //             'password' => 'required'
-    //         ]);
+            if ($validateUser->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $validateUser->errors()
+                ], 400);
+            }
 
-    //         if ($validateUser->fails()) {
-    //             return response()->json([
-    //                 'status' => false,
-    //                 'message' => $validateUser->errors()
-    //             ], 400);
-    //         }
+            $user = Utilisateur::where('login', $request->login)->first();
 
-    //         $user = Utilisateur::where('login', $request->login)->first();
+            if (!$user || !password_verify($request->password, $user->password)) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Login & Password do not match with our records'
+                ], 401);
+            }
+            $token = $user->createToken("API TOKEN")->plainTextToken;
+            $cookie = cookie("token", $token, 24*60);
 
-    //         if (!$user || !password_verify($request->password, $user->password)) {
-    //             return response()->json([
-    //                 'status' => false,
-    //                 'message' => 'Login & Password do not match with our records'
-    //             ], 401);
-    //         }
+            return response()->json([
+                'status' => true,
+                'message' => 'Utilisateur logged in successfully',
+                'token' => $token
+            ])->withCookie($cookie);
+            
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
 
-    //         return response()->json([
-    //             'status' => true,
-    //             'message' => 'Utilisateur logged in successfully',
-    //             'token' => $user->createToken("API TOKEN")->plainTextToken
-    //         ]);
-    //     } catch (\Throwable $th) {
-    //         return response()->json([
-    //             'status' => false,
-    //             'message' => $th->getMessage()
-    //         ], 500);
-    //     }
-    // }
+    public function logout(Request $request)
+    {
+        //dd(Auth::user());
+
+        Auth::guard('sanctum')->user()->tokens()->delete();
+
+        Cookie::forget("token");
+
+        return response()->json([
+            'message' => 'Déconnecté avec succès'
+        ]);
+    }
 
     public function index()
     {
@@ -73,8 +91,8 @@ class UtilisateurController extends Controller
     {
        // dd (auth()->user()->can('create', User::class));
 
-        // $this->authorize('create', Utilisateur::class);
-        // dd(auth()->user()->role);
+        $this->authorize('create', Utilisateur::class);
+        //dd(auth()->user()->role);
 
         try {
             
@@ -85,7 +103,6 @@ class UtilisateurController extends Controller
                 'telephone' => $request->validated()['telephone'],
                 'role' => $request->validated()['role'],
                 'adresse' => $request->validated()['adresse'],
-                'succursale_id' => $request->validated()['succursale_id']
             ]);
 
             return response()->json([
