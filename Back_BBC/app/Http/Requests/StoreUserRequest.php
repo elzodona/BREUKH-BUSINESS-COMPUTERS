@@ -24,7 +24,8 @@ class StoreUserRequest extends FormRequest
         return [
                 'name' => 'required',
                 'email' => 'required|email|unique:users,email',
-                'password' => 'required'
+                'password' => 'required',
+                'role' => 'required|in:admin,lamda'
         ];
     }
 
@@ -35,7 +36,9 @@ class StoreUserRequest extends FormRequest
             'email.required' => "l'email est requis",
             'email.email' => "le format de l'email est invalide",
             'email.unique' => "l'email existe déjà",
-            'password.required' => 'le password est requis'
+            'password.required' => 'le password est requis',
+            'role.required' => 'le role est requis',
+            'role.enum' => 'le role est introuvable',
         ];
     }
     

@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Utilisateur;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUserRequest;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use App\Http\Requests\StoreUserRequest;
+use Illuminate\Support\Facades\Validator;
 
 
 class UserController extends Controller
@@ -58,7 +59,7 @@ class UserController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::logout();
+        Auth::guard('sanctum')->user()->tokens()->delete();
         Cookie::forget("token");
 
         return response()->json([
@@ -76,7 +77,8 @@ class UserController extends Controller
             $user = User::create([
                 'name' => $request->validated()['name'],
                 'email' => $request->validated()['email'],
-                'password' => $request->validated()['password']
+                'password' => $request->validated()['password'],
+                'role' => $request->validated()['role']
             ]);
 
             return response()->json([
