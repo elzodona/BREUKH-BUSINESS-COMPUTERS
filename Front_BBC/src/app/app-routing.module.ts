@@ -7,7 +7,7 @@ import { AccueilComponent } from './components/accueil/accueil.component';
 import { ListProduitsComponent } from './components/produits/list-produits/list-produits.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { AuthGuard } from './guards/canActivated/auth.guard';
+import { AuthGuard } from './_helpers/canActivated/auth.guard';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },

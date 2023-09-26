@@ -19,7 +19,7 @@ class Succursale extends Model
 
     public function utilisateurs()
     {
-        return $this->hasMany(Utilisateur::class, 'succursale_id');
+        return $this->hasMany(Utilisateur::class);
     }
 
     // public function amis()

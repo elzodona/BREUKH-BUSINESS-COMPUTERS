@@ -1,37 +1,35 @@
-<nav style="background-color: rgb(5, 5, 67); color: #f0be67; border-bottom: 7px solid #f0be67;" class="border-gray-200 dark:bg-gray-900">
-    <div class="flex justify-center items-center">
-    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <div class="flex">
+<nav class="bg-[#292994] text-white border-b-7 border-yellow-400">
+    <div class="w-full mx-auto flex flex-nowrap gap-20 p-2">
+        <div class="flex items-center">
             <img src="assets/logo.jpg" class="h-20 w-30 m-2 ml-2 rounded-full" alt="" />
-            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">BreukhCompagnie</span>
+            <span class="text-3xl font-semibold whitespace-nowrap">BreukhCompagnie</span>
         </div>
 
-        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
-            <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                <li>
-                    <a style="color: #f0be67" routerLink="/home" routerLinkActive="active"
-                        class="block py-2 pl-3 text-3xl pr-4 bg-blue-700 rounded md:bg-transparent md:p-0 md:dark:text-blue-500"
-                        aria-current="page">Home</a>
+        <div class="flex flex-col text-3xl mt-6">
+            <span>Bienvenue {{ username }}</span>
+            <span>{{ succursaleName }}</span>
+        </div>
+
+        <div class="hidden md:flex md:items-center md:space-x-8" id="navbar-user">
+            <ul class="flex space-x-8">
+                <li class="text-3xl">
+                    <a routerLink="/home" routerLinkActive="active">Home</a>
                 </li>
-                <li>
-                    <a routerLink="/commande" routerLinkActive="active"
-                        class="block py-2 pl-3 text-3xl pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Commandes</a>
+                <li class="text-3xl">
+                    <a routerLink="/commande" routerLinkActive="active">Commandes</a>
                 </li>
-                <li>
-                    <a routerLink="/produit" routerLinkActive="active"
-                        class="block py-2 pl-3 text-3xl pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Produits</a>
+                <li class="text-3xl">
+                    <a routerLink="/produit" routerLinkActive="active">Produits</a>
                 </li>
-                <li>
-                    <a routerLink="/tabBord" routerLinkActive="active"
-                        class="block py-2 pl-3 text-3xl pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Tableau de bord</a>
+                <li class="text-3xl">
+                    <a routerLink="/tabBord" routerLinkActive="active">Tableau de bord</a>
                 </li>
             </ul>
+
+            <div>
+                <button class="text-3xl ml-44" (click)="logout()">Déconnecter</button>
+            </div>
+            
         </div>
-    </div>
-
-    <div>
-        <button (click)="logout()" class="block py-2 pl-3 text-3xl pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Deconnecter</button>
-    </div>
-
     </div>
 </nav>

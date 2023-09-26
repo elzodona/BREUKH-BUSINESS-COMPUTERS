@@ -10,7 +10,20 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
 
-  constructor(private auth: AuthService, private router: Router){}
+  username: string = 'Breukh'
+  user: any
+  succursaleName: string = ''
+
+  constructor(private auth: AuthService, private router: Router){
+    const userString = localStorage.getItem('user');
+    if (userString) {
+      this.user = JSON.parse(userString);
+      console.log(this.user);
+      this.username = this.user.nomComplet;
+      this.succursaleName = this.user.succursale.nom;
+    }
+    
+  }
 
   logout()
   {

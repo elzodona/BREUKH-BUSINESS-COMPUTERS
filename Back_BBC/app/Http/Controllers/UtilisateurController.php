@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Utilisateur;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Auth\EloquentUserProvider;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\UtilisateurResource;
 use App\Http\Requests\StoreUtilisateurRequest;
 use App\Http\Requests\UpdateUtilisateurRequest;
-use Illuminate\Http\Request;
-use App\Models\Utilisateur;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Cookie;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Auth\EloquentUserProvider;
-use Illuminate\Support\Facades\DB;
 
 
 
@@ -55,7 +56,8 @@ class UtilisateurController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Utilisateur logged in successfully',
-                'token' => $token
+                'token' => $token,
+                'user' => UtilisateurResource::make($user)
             ])->withCookie($cookie);
             
         } catch (\Throwable $th) {

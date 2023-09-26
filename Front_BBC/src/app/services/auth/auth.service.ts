@@ -6,9 +6,10 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
 
-  isLoggedIn = false;
+  public isLoggedIn = false;
 
   constructor(private breukh: HttpClient) {
   }
@@ -18,17 +19,18 @@ export class AuthService {
     return this.breukh.post('http://127.0.0.1:8000/api/auth/Utilisateur', data);
   }
 
+  logout(): void {
+    this.isLoggedIn = false;
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  }
+
   setAccessToken(token: string) {
     localStorage.setItem('token', token);
   }
 
   getAccessToken(): string | null {
     return localStorage.getItem('token');
-  }
-
-  logout(): void {
-    this.isLoggedIn = false;
-    localStorage.removeItem('token');
   }
 
   get isAuthenticated() {

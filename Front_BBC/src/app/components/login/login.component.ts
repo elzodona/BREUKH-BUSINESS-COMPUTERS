@@ -32,8 +32,13 @@ export class LoginComponent {
     this.auth.login(data).subscribe(res => {
       console.log(res);
       if (res.status) {
+        this.router.navigateByUrl('/commande');
+
         this.auth.setAccessToken(res.token);
-        this.router.navigateByUrl('/produit');
+
+        const userString = JSON.stringify(res.user);
+        localStorage.setItem('user', userString);
+
       }else{
         this.router.navigateByUrl('/login');
       }
