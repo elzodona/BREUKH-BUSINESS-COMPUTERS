@@ -8,10 +8,12 @@ import { ListProduitsComponent } from './components/produits/list-produits/list-
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthGuard } from './_helpers/canActivated/auth.guard';
+import { AuthbGuard } from './_helpers/canActivated2/authb.guard';
+
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
-  { path: 'login', component: LoginComponent },
+  { path: '', component: LoginComponent, canActivate: [AuthbGuard] },
+  { path: 'login', component: LoginComponent, canActivate: [AuthbGuard] },
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: AccueilComponent, canActivate: [AuthGuard] },
   { path: 'commande', component: CommandeComponent, canActivate: [AuthGuard] },

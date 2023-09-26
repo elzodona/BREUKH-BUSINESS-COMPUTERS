@@ -18,7 +18,7 @@ export class NavbarComponent {
     const userString = localStorage.getItem('user');
     if (userString) {
       this.user = JSON.parse(userString);
-      console.log(this.user);
+      // console.log(this.user);
       this.username = this.user.nomComplet;
       this.succursaleName = this.user.succursale.nom;
     }

@@ -30,7 +30,7 @@ export class LoginComponent {
     const data = this.loginForm.value;
     // console.log(data);
     this.auth.login(data).subscribe(res => {
-      console.log(res);
+      // console.log(res);
       if (res.status) {
         this.router.navigateByUrl('/commande');
 
