@@ -17,14 +17,15 @@ class ProduitCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-    //    $produits = Produit::paginate(4);
-        $perPage = $request->input('per_page');
-        $produits = Produit::paginate($perPage);
+        // $succursale = Succursale::findOrFail($succId);
+        // return $succursale->produits()->get();
+        // $produits = $succursale->produits()->paginate(request('per_page', 4));
 
         return [
             "numProd" => SuccProd::where('succursale_id', 1)->count(),
             "data" => [
-                "produits" => ProduitResource::collection($produits)
+                // "produits" => ProduitResource::collection($produits)
+                "produits" => $this->collection
             ],
         ];
     }

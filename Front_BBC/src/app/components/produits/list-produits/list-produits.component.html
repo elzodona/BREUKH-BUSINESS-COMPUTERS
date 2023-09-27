@@ -55,8 +55,20 @@
                         <td class="px-3 py-3">{{prod.code}}</td>
                         <td class="px-3 py-3">{{prod.libelle}}</td>
                         <td class="px-3 py-3">{{prod.categorie.libelle}}</td>
-                        <td class="px-3 py-3">{{prod.succursale[0].pivot.prix_unitaire}}</td>
-                        <td class="px-3 py-3">{{prod.succursale[0].pivot.quantite}}</td>
+                        <td class="px-3 py-3">
+                            <ng-container *ngFor="let succursale of prod.succursale">
+                                <ng-container *ngIf="succursale.id === succId">
+                                    {{ succursale.pivot.prix_unitaire }}
+                                </ng-container>
+                            </ng-container>
+                        </td>
+                        <td class="px-3 py-3">
+                            <ng-container *ngFor="let succursale of prod.succursale">
+                                <ng-container *ngIf="succursale.id === succId">
+                                    {{ succursale.pivot.quantite }}
+                                </ng-container>
+                            </ng-container>
+                        </td>
                         <td class="px-3 py-3">
                             <button id="" class="px-2 py-1 text-white rounded bg-blue-500">
                                 Détail

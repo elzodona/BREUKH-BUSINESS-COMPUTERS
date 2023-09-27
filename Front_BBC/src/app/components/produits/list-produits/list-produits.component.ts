@@ -13,19 +13,28 @@ export class ListProduitsComponent {
   links: any
   num: number = 0
   page: number = 4
+  succId: number = 1
 
   ngOnInit()
   {
     this.allProduit()
   }
 
-  constructor(private prodService: ProduitsService, private sharedService: SharedBoolService){}
+  constructor(private prodService: ProduitsService, private sharedService: SharedBoolService){
+    const succ = localStorage.getItem('user');
+    if (succ) {
+      const succs = JSON.parse(succ);
+      this.succId = succs.succursale.id
+    }
+  }
 
   toPaginate(url: string) {
     if (url) {
       this.prodService.allProduit(url, this.page).subscribe((res) => {
         this.produits = res.data.produits;
         this.links = res.data.link;
+        console.log(this.produits);
+        
       });
     } else {
       this.sharedService.setEditMode(true);
@@ -51,6 +60,7 @@ export class ListProduitsComponent {
       this.produits = res.data.produits
       this.links = res.data.link;
       this.num = res.numProd
+      // console.log(this.produits);
     })
   }
 

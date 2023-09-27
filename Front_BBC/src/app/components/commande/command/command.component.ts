@@ -152,6 +152,12 @@ export class CommandComponent {
     modalElement.setAttribute('aria-hidden', 'false');
   }
 
+  // openModal1() {
+  //   const modalElement = this.authenticationModal.nativeElement;
+  //   modalElement.classList.remove('hidden');
+  //   modalElement.setAttribute('aria-hidden', 'false');
+  // }
+
 
 }
 

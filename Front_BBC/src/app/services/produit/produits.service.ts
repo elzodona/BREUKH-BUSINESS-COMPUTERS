@@ -9,8 +9,15 @@ import { AuthService } from '../auth/auth.service';
 
 export class ProduitsService {
 
+  user: any
+  succId: any
 
   constructor(private breukh: HttpClient, private auth: AuthService) {
+    const userString = localStorage.getItem('user');
+    if (userString) {
+      this.user = JSON.parse(userString);
+      this.succId = this.user.succursale.id;
+    }
   }
 
   searchPrix(code: string): Observable<any> {
@@ -37,11 +44,10 @@ export class ProduitsService {
     return this.breukh.get('http://127.0.0.1:8000/api/categorie');
   }
 
-  allProduit(url: string = 'http://127.0.0.1:8000/api/prod/paginer', per_page: number = 4): Observable<any> {
+  allProduit(url: string = `http://127.0.0.1:8000/api/allprod/succ/${this.succId}`, per_page: number = 4): Observable<any> {
     const params = { per_page };
     return this.breukh.post(url, params);
   }
-
 
   addComm(data: any): Observable<any> {
     const headers = new HttpHeaders({

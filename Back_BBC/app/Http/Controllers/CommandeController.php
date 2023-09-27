@@ -36,12 +36,6 @@ class CommandeController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    // $client = Client::findOrFail($request->client_id)->id;
-    // $utilisateur = Utilisateur::findOrFail($request->utilisateur_id)->id;
-
     public function store(Request $request)
     {
         //dd(Auth::user());
@@ -65,7 +59,7 @@ class CommandeController extends Controller
 
             $comm = Commande::create([
                 'date_comm' => now(),
-                'utilisateur_id' => 2,
+                'utilisateur_id' => 1,
                 'client_id' => 1
             ]);
             

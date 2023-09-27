@@ -28,6 +28,7 @@ class StoreUtilisateurRequest extends FormRequest
                 'telephone' => 'required',
                 'adresse' => 'required',
                 'role' => 'required|in:caissier,vendeur',
+                'succursale_id' => 'required'
         ];
     }
 
@@ -41,6 +42,7 @@ class StoreUtilisateurRequest extends FormRequest
             'role.required' => "le role est requis",
             'role.invalid' => "le role est incorrect",
             'password.required' => 'le password est requis',
+            'succursale_id.required' => 'le succursale est requis',
         ];
     }
 

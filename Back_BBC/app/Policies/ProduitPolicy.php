@@ -14,7 +14,7 @@ class ProduitPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return $Utilisateur->role == 'caissier';
     }
 
     /**
@@ -22,7 +22,7 @@ class ProduitPolicy
      */
     public function view(User $user, Produit $produit): bool
     {
-        //
+        return $Utilisateur->role == 'caissier';
     }
 
     /**
@@ -30,7 +30,7 @@ class ProduitPolicy
      */
     public function create(Utilisateur $Utilisateur): bool
     {
-        return $Utilisateur->role == 'vendeur';
+        return $Utilisateur->role == 'caissier';
     }
 
     /**

@@ -15,14 +15,7 @@ class Utilisateur extends Authenticatable
 {
     use HasFactory, SoftDeletes, HasApiTokens;
 
-    protected $fillable = [
-        'nomComplet',
-        'telephone',
-        'login',
-        'password',
-        'adresse',
-        'role',
-        'succursale_id'
+    protected $guarded = [
     ];
 
     protected $hidden = [

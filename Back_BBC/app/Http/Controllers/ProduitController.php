@@ -33,11 +33,18 @@ class ProduitController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function paginer(Request $request)
+    public function paginer(Request $request, $succId)
     {
+        // return $request;
+        // dd(Auth::user());
+        // $this->authorize('viewAny', Produit::class);
+        // $this->authorize('view', Produit::class);
         // $produits = Produit::paginate(4);
         // return new ProduitCollection($produits);
-        $produits = Produit::paginate($request->input('per_page'));
+
+        $succursale = Succursale::findOrFail($succId);
+        // return $succursale->produits()->get();
+        $produits = $succursale->produits()->paginate(request('per_page', 4));
         return new ProduitCollection($produits);
 
     }

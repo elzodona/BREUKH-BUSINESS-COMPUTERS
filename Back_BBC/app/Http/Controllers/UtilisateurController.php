@@ -106,6 +106,7 @@ class UtilisateurController extends Controller
                 'telephone' => $request->validated()['telephone'],
                 'role' => $request->validated()['role'],
                 'adresse' => $request->validated()['adresse'],
+                'succursale_id' => $request->validated()['succursale_id'],
             ]);
 
             return response()->json([
