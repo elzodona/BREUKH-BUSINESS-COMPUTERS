@@ -9,10 +9,11 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthGuard } from './_helpers/canActivated/auth.guard';
 import { AuthbGuard } from './_helpers/canActivated2/authb.guard';
+import { caFnGuard } from './_helpers/canActivateFn/ca-fn.guard';
 
 
 const routes: Routes = [
-  { path: '', component: LoginComponent, canActivate: [AuthbGuard] },
+  { path: '', component: LoginComponent, canActivate: [caFnGuard] },
   { path: 'login', component: LoginComponent, canActivate: [AuthbGuard] },
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: AccueilComponent, canActivate: [AuthGuard] },
