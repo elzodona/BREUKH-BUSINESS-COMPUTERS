@@ -1,5 +1,5 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 
@@ -11,17 +11,19 @@ export class ProduitsService {
 
   user: any
   succId: any
+  userId: any
 
   constructor(private breukh: HttpClient, private auth: AuthService) {
     const userString = localStorage.getItem('user');
     if (userString) {
       this.user = JSON.parse(userString);
+      this.userId = this.user.id;
       this.succId = this.user.succursale.id;
     }
   }
 
-  searchPrix(code: string): Observable<any> {
-    return this.breukh.get<any>(`http://127.0.0.1:8000/api/search/1/${code}`);
+  searchProd(code: string): Observable<any> {
+    return this.breukh.get<any>(`http://127.0.0.1:8000/api/search/${this.succId}/${code}`);
   }
 
   getProd(): Observable<any> {
@@ -50,23 +52,17 @@ export class ProduitsService {
   }
 
   addComm(data: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.auth.getAccessToken()}`
-    });
+    // const headers = new HttpHeaders({
+    //   'Content-Type': 'application/json',
+    //   'Authorization': `Bearer ${this.auth.getAccessToken()}`
+    // });
 
-    return this.breukh.post('http://127.0.0.1:8000/api/comm', data, { headers });
+    return this.breukh.post(`http://127.0.0.1:8000/api/commBy/${this.userId}`, data);
   }
 
   addProd(data: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.auth.getAccessToken()}`
-    });
-
-    return this.breukh.post('http://127.0.0.1:8000/api/prod', data, { headers });
+    return this.breukh.post('http://127.0.0.1:8000/api/prod', data);
   }
-
 
 
 }

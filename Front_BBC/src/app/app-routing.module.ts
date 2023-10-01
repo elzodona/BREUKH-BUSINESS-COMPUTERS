@@ -7,14 +7,13 @@ import { AccueilComponent } from './components/accueil/accueil.component';
 import { ListProduitsComponent } from './components/produits/list-produits/list-produits.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { AuthGuard } from './_helpers/canActivated/auth.guard';
-import { AuthbGuard } from './_helpers/canActivated2/authb.guard';
-import { caFnGuard } from './_helpers/canActivateFn/ca-fn.guard';
+import { AuthGuard } from './_helpers/guards/canActivated/auth.guard';
+import { caFnGuard } from './_helpers/guards/canActivateFn/ca-fn.guard';
 
 
 const routes: Routes = [
   { path: '', component: LoginComponent, canActivate: [caFnGuard] },
-  { path: 'login', component: LoginComponent, canActivate: [AuthbGuard] },
+  { path: 'login', component: LoginComponent, canActivate: [caFnGuard] },
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: AccueilComponent, canActivate: [AuthGuard] },
   { path: 'commande', component: CommandeComponent, canActivate: [AuthGuard] },

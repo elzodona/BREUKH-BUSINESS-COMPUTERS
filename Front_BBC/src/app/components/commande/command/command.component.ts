@@ -34,7 +34,7 @@ export class CommandComponent {
   succ: boolean = false;
   hop: number = 0;
   succ_name: string = ''
-  
+  succId: number = 0;
 
   constructor(private prodService: ProduitsService, private fb: FormBuilder)
   {
@@ -43,6 +43,13 @@ export class CommandComponent {
       'qte': ['', [Validators.required, Validators.pattern(/^[0-9]*$/), this.checkQuantity.bind(this)]],
       'succ_prod': ['']
     });
+
+    const succ = localStorage.getItem('user');
+    if (succ) {
+      const succs = JSON.parse(succ);
+      this.succId = succs.succursale.id
+    }
+
   }
   
   ngOnInit(){
@@ -62,8 +69,10 @@ export class CommandComponent {
     this.prodService.allUnite().subscribe(res => {
       this.unites = res;
 
-      this.prodService.searchPrix(this.reference).subscribe(res => {
+      this.prodService.searchProd(this.reference).subscribe(res => {
         this.produit = res.produit;
+        console.log(this.produit);
+        
         this.display = !!this.produit;
         
           if (this.produit) {
@@ -76,8 +85,13 @@ export class CommandComponent {
             this.code = this.produit.code;
             this.description = this.produit.caracteristiques[0].pivot.description;
             this.caracts = this.produit.caracteristiques;
-            this.succ_prod_id = this.produit.succursale[0].pivot.id;
-            this.qte = this.produit.succursale[0].pivot.quantite;
+            this.produit.succursale.forEach((elmt: any) => {
+              if (elmt.id === this.succId) {
+                this.succ_prod_id = elmt.pivot.id;
+                this.qte = elmt.pivot.quantite;
+              }
+            });
+            
             } else {
               // alert("Vous n'avez plus de stock disponible pour ce produit");
               this.succ = true;

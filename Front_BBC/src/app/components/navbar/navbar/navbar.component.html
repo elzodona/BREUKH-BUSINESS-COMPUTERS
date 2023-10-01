@@ -1,16 +1,12 @@
-<nav class="bg-[#292994] text-white border-b-7 border-yellow-400">
-    <div class="w-full mx-auto flex flex-nowrap gap-20 p-2">
+<nav class="bg-[#292994] flex text-white border-b-7 border-yellow-400">
+
+    <div class="w-full ml-6 flex flex-nowrap gap-20 p-2">
         <div class="flex items-center">
             <img src="assets/logo.jpg" class="h-20 w-30 m-2 ml-2 rounded-full" alt="" />
             <span class="text-3xl font-semibold whitespace-nowrap">BreukhCompagnie</span>
         </div>
 
-        <div class="flex flex-col text-3xl mt-6">
-            <span>Bienvenue {{ username }}</span>
-            <span>{{ succursaleName }}</span>
-        </div>
-
-        <div class="hidden md:flex md:items-center md:space-x-8" id="navbar-user">
+        <div class="hidden ml-60 md:flex md:items-center md:space-x-8" id="navbar-user">
             <ul class="flex space-x-8">
                 <li class="text-3xl">
                     <a routerLink="/home" routerLinkActive="active">Home</a>
@@ -25,11 +21,35 @@
                     <a routerLink="/tabBord" routerLinkActive="active">Tableau de bord</a>
                 </li>
             </ul>
-
-            <div>
-                <button class="text-3xl ml-44" (click)="logout()">Déconnecter</button>
-            </div>
             
         </div>
     </div>
+
+    <div class="flex gap-6 items-center mr-36">
+        <div class="text-3xl">{{ succursaleName }}</div>
+
+        <button type="button"
+            class="flex text-sm bg-blue-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+            id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
+            data-dropdown-placement="bottom">
+            <span class="sr-only">Open user menu</span>
+            <img class="w-24 h-16 rounded-full" src="assets/reunion_family.jpg" alt="user photo">
+        </button>
+
+        <div class="flex text-3xl mt-6">
+            <span>{{ username }}</span>
+        </div>
+    
+        <div class="z-50 hidden my-4 bg-[#292994] border-4 border-yellow-400 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+            id="user-dropdown">
+            <div class="px-4 py-3 flex flex-col">
+                <!-- <span class="cursor-pointer text-2xl text-yellow-400 hover:text-white dark:text-white">Profil</span> -->
+                <span class="text-yellow-400 hover:text-white dark:text-gray-400">
+                    <button class="text-2xl" (click)="logout()">Sign out</button>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+
 </nav>

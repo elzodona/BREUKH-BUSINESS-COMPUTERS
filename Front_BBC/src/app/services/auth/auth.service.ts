@@ -9,20 +9,17 @@ import { Observable } from 'rxjs';
 
 export class AuthService {
 
-  public isLoggedIn = false;
-
   constructor(private breukh: HttpClient) {
   }
 
   login(data: any): Observable<any> {
-    this.isLoggedIn = true;
     return this.breukh.post('http://127.0.0.1:8000/api/auth/Utilisateur', data);
   }
 
-  logout(): void {
-    this.isLoggedIn = false;
+  logout(data: any) {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    return this.breukh.post('http://127.0.0.1:8000/api/auth/logout/user', data);
   }
 
   setAccessToken(token: string) {
@@ -31,10 +28,6 @@ export class AuthService {
 
   getAccessToken(): string | null {
     return localStorage.getItem('token');
-  }
-
-  get isAuthenticated() {
-    return this.isLoggedIn;
   }
 
 

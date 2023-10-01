@@ -38,7 +38,7 @@ class ProduitPolicy
      */
     public function update(User $user, Produit $produit): bool
     {
-        //
+        return $Utilisateur->role == 'caissier';
     }
 
     /**
@@ -46,7 +46,7 @@ class ProduitPolicy
      */
     public function delete(User $user, Produit $produit): bool
     {
-        //
+        return $Utilisateur->role == 'caissier';
     }
 
     /**

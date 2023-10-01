@@ -54,56 +54,61 @@ class ProduitController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', Produit::class);
-        // dd(Auth::user());
-        // dd(auth()->user()->role);
-        try {
-            $code = Carbon::now()->format('YmdHis');
+        if (Auth::check()) {
 
-            $succ = Succursale::where('id', $request->succursale_id)->first()->id;
+            $this->authorize('create', Produit::class);
+            // dd(Auth::user());
+            // dd(auth()->user()->role);
+            try {
+                $code = Carbon::now()->format('YmdHis');
 
-            $imagePath = str_replace('data:image/jpeg;base64,', '', $request->photo_name);
-            $fileName = $request->photo;
+                $succ = Succursale::where('id', $request->succursale_id)->first()->id;
 
-            Storage::disk('public')->put($fileName, base64_decode($imagePath));
+                $imagePath = str_replace('data:image/jpeg;base64,', '', $request->photo_name);
+                $fileName = $request->photo;
 
-            $categorie_id  = Categorie::findOrFail($request->categorie)->id;
-            $marque_id  = Marque::findOrFail($request->marque)->id;
-            // return $marque_id;
+                Storage::disk('public')->put($fileName, base64_decode($imagePath));
 
-            $prod = Produit::create([
-                'libelle' => $request->libelle,
-                'code' => $code,
-                'photo' => $fileName,
-                'categorie_id' => $categorie_id,
-                'marque_id' => $marque_id
-            ]);
-            
-            $prod->succursales()->attach($succ, ['quantite'=>$request->qte, 'prix_unitaire'=>$request->prix]);
+                $categorie_id  = Categorie::findOrFail($request->categorie)->id;
+                $marque_id  = Marque::findOrFail($request->marque)->id;
+                // return $marque_id;
 
-            $car = $request->caracts;
-            foreach ($car as $value) {
-                if (isset($value["unite"]) && is_numeric($value["unite"])) {
-                    $prod->caracteristiques()->attach($value["caracteristique"], ["valeur"=>$value["valeur"], "unite_id"=>$value["unite"]]);
-                } else {
-                    $prod->caracteristiques()->attach($value["caracteristique"], ["valeur"=>$value["valeur"]]);
+                $prod = Produit::create([
+                    'libelle' => $request->libelle,
+                    'code' => $code,
+                    'photo' => $fileName,
+                    'categorie_id' => $categorie_id,
+                    'marque_id' => $marque_id
+                ]);
+                
+                $prod->succursales()->attach($succ, ['quantite'=>$request->qte, 'prix_unitaire'=>$request->prix]);
+
+                $car = $request->caracts;
+                foreach ($car as $value) {
+                    if (isset($value["unite"]) && is_numeric($value["unite"])) {
+                        $prod->caracteristiques()->attach($value["caracteristique"], ["valeur"=>$value["valeur"], "unite_id"=>$value["unite"]]);
+                    } else {
+                        $prod->caracteristiques()->attach($value["caracteristique"], ["valeur"=>$value["valeur"]]);
+                    }
                 }
+
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Produit create successfully',
+                    'produit' => new ProduitResource($prod),
+                ], 200);
+
+            } catch (\Throwable $th) {
+                var_dump($th); 
+                return response()->json(
+                    [
+                        'status' => false,
+                        'message' => $th->getMessage(),
+                    ], 500
+                );
             }
-
-            return response()->json([
-                'status' => true,
-                'message' => 'Produit create successfully',
-                'produit' => new ProduitResource($prod),
-            ], 200);
-
-        } catch (\Throwable $th) {
-            var_dump($th); 
-            return response()->json(
-                [
-                    'status' => false,
-                    'message' => $th->getMessage(),
-                ], 500
-            );
+        }else{
+            return response()->json(['message' => "Erreur d'authenfication"]);
         }
 
     }

@@ -27,8 +27,14 @@ export class NavbarComponent {
 
   logout()
   {
-    this.auth.logout();
-    this.router.navigateByUrl('/login');
+    const user = localStorage.getItem('user');
+    if (user) {
+      const wei = JSON.parse(user)
+      console.log(wei);
+      
+    }
+    // this.auth.logout();
+    // this.router.navigateByUrl('/login');
   }
 
 

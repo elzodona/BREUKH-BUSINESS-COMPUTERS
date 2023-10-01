@@ -31,7 +31,6 @@ Route::post('auth/login', [UserController::class, 'loginUser']);
 
 Route::post('auth/Utilisateur', [UtilisateurController::class, 'loginUtilisateur']);
 
-
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('/user', function (Request $request) {
         return $request->user();
@@ -47,6 +46,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::apiResource('prod', ProduitController::class);
 
     Route::apiResource('/comm', CommandeController::class);
+    Route::post('/commBy/{userId}', [CommandeController::class, 'create']);
 
 });
 
